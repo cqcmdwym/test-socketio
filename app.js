@@ -6,15 +6,15 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
-var clients = 0;
-var nsp = io.of('/my-namespace');
+var roomno=1;
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
 
-nsp.on('connection',function(socket){
-	clients++;
+
+io.on('connection',function(socket){
+	
 	
 	console.log('A user connected');
 	
@@ -32,15 +32,21 @@ nsp.on('connection',function(socket){
 	
 	//socket.emit('newclientconnect',{ description: 'Hey, welcome!'});
 	
-	socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
+	// socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
 	
-	socket.on('clientEvent',function(data){
-		console.log(data);
-	});
+	// socket.on('clientEvent',function(data){
+		// console.log(data);
+	// });
 	
+	if(io.nsps['/'].adapter.rooms["room-"+roomno] && io.nsps['/'].adapter.rooms["room-"+roomno].length > 1){
+		roomno++;
+	}
+	socket.join('room-'+roomno);
+	
+	io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
 	
 	socket.on('disconnect',function(){
-		clients--;
+		
 		console.log('A user disconnected');
 	});
 });

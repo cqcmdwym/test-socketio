@@ -4,7 +4,7 @@
 	<title>Hello world</title>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-		var socket = io('/my-namespace');
+		var socket = io('/');
 		//socket.on('message',function(data){
 		//	document.write(data);
 		//});
@@ -16,10 +16,15 @@
 		//	  document.body.innerHTML = '';
 		//	  document.write(data.description);
 		//});
-		socket.on('newclientconnect',function(data){
-			  document.body.innerHTML = '';
-			  document.write(data.description);
-		});
+		//socket.on('newclientconnect',function(data){
+		//	  document.body.innerHTML = '';
+		//	  document.write(data.description);
+		//});
+		
+		socket.on('connectToRoom',function(data){
+          document.body.innerHTML = '';
+          document.write(data);
+      });
 	</script>
   </head>
   <body>Hello world</body>
