@@ -25,7 +25,13 @@ io.on('connection',function(socket){
 		// });
 	// }, 4000);
 	
-	io.sockets.emit('broadcast',{description:clients+' clients connected!'});
+	
+	
+	//io.sockets.emit('broadcast',{description:clients+' clients connected!'});
+	
+	//socket.emit('newclientconnect',{ description: 'Hey, welcome!'});
+	
+	socket.broadcast.emit('newclientconnect',{ description: clients + ' clients connected!'})
 	
 	socket.on('clientEvent',function(data){
 		console.log(data);
@@ -33,6 +39,7 @@ io.on('connection',function(socket){
 	
 	
 	socket.on('disconnect',function(){
+		clients--;
 		console.log('A user disconnected');
 	});
 });

@@ -12,7 +12,11 @@
 		//	document.write(data.description);
 		//});
 		//socket.emit('clientEvent','Sent an event from the client!');
-		socket.on('broadcast',function(data){
+		//socket.on('broadcast',function(data){
+		//	  document.body.innerHTML = '';
+		//	  document.write(data.description);
+		//});
+		socket.on('newclientconnect',function(data){
 			  document.body.innerHTML = '';
 			  document.write(data.description);
 		});
