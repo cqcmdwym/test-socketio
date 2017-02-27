@@ -7,12 +7,13 @@ app.get('/', function(req, res){
 });
 
 var clients = 0;
+var nsp = io.of('/my-namespace');
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
 
-io.on('connection',function(socket){
+nsp.on('connection',function(socket){
 	clients++;
 	
 	console.log('A user connected');
